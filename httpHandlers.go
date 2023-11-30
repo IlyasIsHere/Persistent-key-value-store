@@ -76,7 +76,8 @@ func setHandler(lsmdb *lsmDB) http.HandlerFunc {
 		}
 
 		if err := lsmdb.Set([]byte(entry.Key), []byte(entry.Value)); err != nil {
-			http.Error(w, "Some error happened.", http.StatusBadRequest)
+			// http.Error(w, "Some error happened.", http.StatusBadRequest)
+			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
 		fmt.Fprint(w, "OK")

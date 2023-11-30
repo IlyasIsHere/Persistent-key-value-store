@@ -99,7 +99,7 @@ func (lsmdb *lsmDB) createHeader() []byte {
 	return header
 }
 
-// Flushed the current memTable to a new sst file, and clears the WAL.
+// Flushes the current memTable to a new sst file, and clears the WAL.
 func (lsmdb *lsmDB) flushToDisk() error {
 
 	newSSTFilesNum := lsmdb.sstFilesNum + 1
@@ -163,7 +163,6 @@ func (lsmdb *lsmDB) loadWALtoMemTable() error {
 
 		lsmdb.memTable.writeOperation(OperationType(op), key, value)
 	}
-
 }
 
 // Search for a key in an sst file.
@@ -294,8 +293,6 @@ func (lsmdb *lsmDB) Set(key, value []byte) error {
 		// Clearing the memTable
 		lsmdb.memTable.sortedMap.Clear()
 	}
-
-	// TODO: compaction (if the number of sst files is greater than the threshold)
 
 	return nil
 }

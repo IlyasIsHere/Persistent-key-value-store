@@ -23,12 +23,6 @@ type MemTable struct {
 	sortedMap treemap.TreeMap[string, []byte]
 }
 
-type DB interface {
-	Set(key []byte, value []byte) error
-	Get(key []byte) ([]byte, error)
-	Del(key []byte) ([]byte, error)
-}
-
 func (mem *MemTable) Set(key, value []byte) error {
 	valueWithOp := append([]byte{byte(SetOp)}, value...)
 	mem.sortedMap.Set(string(key), valueWithOp)
